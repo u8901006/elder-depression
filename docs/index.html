@@ -15,7 +15,10 @@
   .subtitle { text-align: center; color: var(--accent); font-size: 14px; margin-bottom: 16px; }
   .description { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
   .count { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 32px; }
-  .loading { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 14px; }
+  ul { list-style: none; }
+  li { margin-bottom: 8px; }
+  a { color: var(--text); text-decoration: none; display: block; padding: 14px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; transition: all 0.2s; font-size: 15px; }
+  a:hover { background: var(--accent-soft); border-color: var(--accent); transform: translateX(4px); }
   .links-section { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
   .link-card { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--text); transition: all 0.2s; margin-bottom: 8px; font-size: 14px; }
   .link-card:hover { background: var(--accent-soft); border-color: var(--accent); transform: translateX(4px); }
@@ -33,10 +36,8 @@
   <h1>老年憂鬱症文獻日報</h1>
   <p class="subtitle">Geriatric Depression Daily · 每日自動更新</p>
   <p class="description">每日自動從 PubMed 搜尋老年憂鬱症（Late-Life Depression / Geriatric Depression）最新研究文獻，由 Zhipu AI 進行分析總結與分類。</p>
-  <div class="loading">
-    📡 首份日報生成中，請稍候…<br/><br/>
-    若持續顯示此頁面，請至 <a href="https://github.com/u8901006/elder-depression/actions" style="color: var(--accent);">GitHub Actions</a> 查看執行狀態。
-  </div>
+  <p class="count">共 0 期日報</p>
+  <ul></ul>
   <div class="links-section">
     <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank" rel="noopener">
       <span class="link-icon">🏥</span>
