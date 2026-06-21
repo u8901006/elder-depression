@@ -1,4 +1,3 @@
-import { execSync } from "node:child_process";
 import { writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -45,24 +44,22 @@ const SINCE_DATE = SEVEN_DAYS_AGO.toISOString().split("T")[0];
 
 const BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils";
 
-function fetchJson(url) {
+async function fetchJson(url) {
   const maxRetries = 3;
   for (let i = 0; i < maxRetries; i++) {
     try {
-      const result = execSync(`curl -sL --max-time 60 "${url}"`, {
-        encoding: "utf-8",
-        timeout: 90000,
-      });
-      return JSON.parse(result);
+      const resp = await fetch(url, { signal: AbortSignal.timeout(60000) });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      return await resp.json();
     } catch (e) {
-      console.error(`Retry ${i + 1}/${maxRetries} for ${url}: ${e.message}`);
-      if (i === maxRetries - 1) return null;
+      console.error(`Retry ${i + 1}/${maxRetries} for esearch: ${e.message}`);
+      if (i < maxRetries - 1) await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
     }
   }
   return null;
 }
 
-function fetchPaperDetails(pmids) {
+async function fetchPaperDetails(pmids) {
   if (!pmids.length) return [];
   const chunks = [];
   for (let i = 0; i < pmids.length; i += 50) {
@@ -74,10 +71,10 @@ function fetchPaperDetails(pmids) {
     const idList = chunk.join(",");
     const url = `${BASE_URL}/efetch.fcgi?db=pubmed&id=${encodeURIComponent(idList)}&rettype=xml&retmode=xml`;
     try {
-      const xml = execSync(`curl -sL --max-time 60 "${url}"`, {
-        encoding: "utf-8",
-        timeout: 90000,
-      });
+      const resp = await fetch(url, { signal: AbortSignal.timeout(90000) });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const xml = await resp.text();
+      console.log(`  efetch returned ${xml.length} chars`);
       const articles = parsePubmedXml(xml);
       papers.push(...articles);
     } catch (e) {
@@ -219,7 +216,7 @@ async function main() {
     const searchUrl = `${BASE_URL}/esearch.fcgi?db=pubmed&term=${encodeURIComponent(fullQuery)}&retmax=100&retmode=json&sort=relevance${apiKey ? `&api_key=${apiKey}` : ""}`;
 
     console.log(`\nSearching: ${sq.name}...`);
-    const data = fetchJson(searchUrl);
+    const data = await fetchJson(searchUrl);
     if (data?.esearchresult?.idlist) {
       data.esearchresult.idlist.forEach((id) => allPmids.add(id));
       console.log(`  Found ${data.esearchresult.idlist.length} PMIDs`);
@@ -243,7 +240,7 @@ async function main() {
   const limitedPmids = newPmids.slice(0, 30);
   console.log(`Fetching details for ${limitedPmids.length} papers...`);
 
-  const papers = fetchPaperDetails(limitedPmids);
+  const papers = await fetchPaperDetails(limitedPmids);
   console.log(`Got details for ${papers.length} papers`);
 
   papers.sort((a, b) => (b.pubDate > a.pubDate ? 1 : -1));
