@@ -1,8 +1,8 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const API_BASE = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
-const MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
+const API_BASE = "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions";
+const MODELS = ["GLM-5-Turbo"];
 const TIMEOUT_MS = 480_000;
 const MAX_TOKENS = 16384;
 
