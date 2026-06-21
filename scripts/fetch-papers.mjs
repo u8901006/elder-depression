@@ -240,7 +240,7 @@ async function main() {
     return;
   }
 
-  const limitedPmids = newPmids.slice(0, 60);
+  const limitedPmids = newPmids.slice(0, 30);
   console.log(`Fetching details for ${limitedPmids.length} papers...`);
 
   const papers = fetchPaperDetails(limitedPmids);

@@ -2,9 +2,9 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const API_BASE = "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions";
-const MODELS = ["GLM-5-Turbo"];
+const MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
 const TIMEOUT_MS = 480_000;
-const MAX_TOKENS = 16384;
+const MAX_TOKENS = 50000;
 
 const TARGET_DATE = process.env.TARGET_DATE || new Date().toISOString().split("T")[0];
 const API_KEY = process.env.ZHIPU_API_KEY;
@@ -15,23 +15,51 @@ if (!API_KEY) {
 }
 
 function safeParseJson(text) {
-  try {
-    const cleaned = text
-      .replace(/^```(?:json)?\s*\n?/i, "")
-      .replace(/\n?```\s*$/i, "")
-      .trim();
-    const start = cleaned.indexOf("{");
-    const end = cleaned.lastIndexOf("}");
-    if (start !== -1 && end !== -1 && end > start) {
-      const jsonStr = cleaned.substring(start, end + 1);
-      return JSON.parse(jsonStr);
+  if (!text || typeof text !== "string") return null;
+
+  const attempts = [
+    () => JSON.parse(text),
+    () => {
+      const cleaned = text
+        .replace(/^```(?:json)?\s*\n?/i, "")
+        .replace(/\n?```\s*$/i, "")
+        .trim();
+      return JSON.parse(cleaned);
+    },
+    () => {
+      const start = text.indexOf("{");
+      const end = text.lastIndexOf("}");
+      if (start !== -1 && end !== -1 && end > start) {
+        return JSON.parse(text.substring(start, end + 1));
+      }
+      throw new Error("No JSON object found");
+    },
+    () => {
+      const start = text.indexOf("[");
+      const end = text.lastIndexOf("]");
+      if (start !== -1 && end !== -1 && end > start) {
+        const arr = JSON.parse(text.substring(start, end + 1));
+        return Array.isArray(arr) ? arr[0] : arr;
+      }
+      throw new Error("No JSON array found");
+    },
+  ];
+
+  for (let i = 0; i < attempts.length; i++) {
+    try {
+      const result = attempts[i]();
+      if (result && typeof result === "object") {
+        console.log(`JSON parsed successfully (attempt ${i + 1})`);
+        return result;
+      }
+    } catch (e) {
+      console.error(`JSON parse attempt ${i + 1} failed: ${e.message}`);
     }
-    return JSON.parse(cleaned);
-  } catch (e) {
-    console.error(`JSON parse failed: ${e.message}`);
-    console.error(`Raw text (first 500): ${text.substring(0, 500)}`);
-    return null;
   }
+
+  console.error(`All JSON parse attempts failed.`);
+  console.error(`Raw text (first 800 chars): ${text.substring(0, 800)}`);
+  return null;
 }
 
 async function callZhipuAI(prompt, modelIndex = 0) {
@@ -408,31 +436,39 @@ async function main() {
     process.exit(0);
   }
 
+  const docsDir = join(process.cwd(), "docs");
+  if (!existsSync(docsDir)) mkdirSync(docsDir, { recursive: true });
+
   console.log(`Processing ${papersData.papers.length} papers with AI...`);
   const prompt = buildPrompt(papersData.papers);
-  const aiResponse = await callZhipuAI(prompt, 0);
 
-  if (!aiResponse) {
-    console.error("AI returned empty response after all retries");
-    process.exit(1);
+  let parsed = null;
+  const maxAiRetries = 2;
+
+  for (let attempt = 0; attempt < maxAiRetries && !parsed; attempt++) {
+    if (attempt > 0) {
+      console.log(`\n--- Retry attempt ${attempt + 1}/${maxAiRetries} ---`);
+    }
+    const aiResponse = await callZhipuAI(prompt, 0);
+
+    if (!aiResponse) {
+      console.error("AI returned empty response after all model fallbacks");
+      continue;
+    }
+
+    parsed = safeParseJson(aiResponse);
   }
 
-  const parsed = safeParseJson(aiResponse);
   if (!parsed) {
-    console.error("Failed to parse AI response as JSON");
-    console.log("Attempting repair...");
+    console.error("All AI retries exhausted. Generating fallback report...");
     const fallback = buildFallbackData(papersData.papers);
     const html = generateHtml(fallback);
-    const docsDir = join(process.cwd(), "docs");
-    if (!existsSync(docsDir)) mkdirSync(docsDir, { recursive: true });
     writeFileSync(join(docsDir, `geriatric-${TARGET_DATE}.html`), html);
     console.log(`Generated fallback report: geriatric-${TARGET_DATE}.html`);
     return;
   }
 
   const html = generateHtml(parsed);
-  const docsDir = join(process.cwd(), "docs");
-  if (!existsSync(docsDir)) mkdirSync(docsDir, { recursive: true });
   writeFileSync(join(docsDir, `geriatric-${TARGET_DATE}.html`), html);
   console.log(`Generated report: geriatric-${TARGET_DATE}.html`);
 }

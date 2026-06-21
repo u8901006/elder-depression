@@ -68,6 +68,7 @@ jobs:
           node scripts/generate-report.mjs
 
       - name: Generate index page
+        if: always()
         run: |
           node scripts/generate-index.mjs
 
