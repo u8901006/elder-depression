@@ -73,7 +73,7 @@ function generateIndex() {
   <div class="logo">👴</div>
   <h1>老年憂鬱症文獻日報</h1>
   <p class="subtitle">Geriatric Depression Daily · 每日自動更新</p>
-  <p class="description">每日自動從 PubMed 搜尋老年憂鬱症（Late-Life Depression / Geriatric Depression）最新研究文獻，由 Zhipu AI 進行分析總結與分類。</p>
+  <p class="description">每日自動從 PubMed 搜尋老年憂鬱症（Late-Life Depression / Geriatric Depression）最新研究文獻，由 NVIDIA NIM Nemotron 3 進行分析總結與分類。</p>
   <p class="count">共 ${entries.length} 期日報</p>
   <ul>${listHtml}</ul>
   <div class="links-section">
@@ -94,7 +94,7 @@ function generateIndex() {
     </a>
   </div>
   <footer>
-    <p>Powered by PubMed + Zhipu AI · <a href="https://github.com/u8901006/elder-depression">GitHub</a></p>
+    <p>Powered by PubMed + NVIDIA NIM · nvidia/nemotron-3-super-120b-a12b · <a href="https://github.com/u8901006/elder-depression">GitHub</a></p>
   </footer>
 </div>
 </body>

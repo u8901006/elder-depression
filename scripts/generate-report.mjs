@@ -1,16 +1,16 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const API_BASE = "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions";
-const MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
+const API_BASE = "https://integrate.api.nvidia.com/v1/chat/completions";
+const MODELS = ["nvidia/nemotron-3-super-120b-a12b", "nvidia/nemotron-3-nano-30b-a3b"];
 const TIMEOUT_MS = 480_000;
-const MAX_TOKENS = 50000;
+const MAX_TOKENS = 16384;
 
 const TARGET_DATE = process.env.TARGET_DATE || new Date().toISOString().split("T")[0];
-const API_KEY = process.env.ZHIPU_API_KEY;
+const API_KEY = process.env.NVIDIA_API_KEY;
 
 if (!API_KEY) {
-  console.error("ZHIPU_API_KEY is not set");
+  console.error("NVIDIA_API_KEY is not set");
   process.exit(1);
 }
 
@@ -62,7 +62,7 @@ function safeParseJson(text) {
   return null;
 }
 
-async function callZhipuAI(prompt, modelIndex = 0) {
+async function callNvidiaAI(prompt, modelIndex = 0) {
   if (modelIndex >= MODELS.length) {
     throw new Error("All models exhausted");
   }
@@ -89,9 +89,11 @@ async function callZhipuAI(prompt, modelIndex = 0) {
           },
           { role: "user", content: prompt },
         ],
-        temperature: 0.3,
+        temperature: 1.0,
         max_tokens: MAX_TOKENS,
-        top_p: 0.7,
+        top_p: 0.95,
+        stream: false,
+        chat_template_kwargs: { enable_thinking: false },
       }),
       signal: controller.signal,
     });
@@ -102,14 +104,14 @@ async function callZhipuAI(prompt, modelIndex = 0) {
       const errText = await response.text().catch(() => "");
       console.error(`${model} API error ${response.status}: ${errText.substring(0, 200)}`);
       console.log(`Falling back to next model...`);
-      return callZhipuAI(prompt, modelIndex + 1);
+      return callNvidiaAI(prompt, modelIndex + 1);
     }
 
     const data = await response.json();
     const content = data?.choices?.[0]?.message?.content;
     if (!content) {
       console.error(`${model}: Empty response, trying next model...`);
-      return callZhipuAI(prompt, modelIndex + 1);
+      return callNvidiaAI(prompt, modelIndex + 1);
     }
     return content;
   } catch (e) {
@@ -120,7 +122,7 @@ async function callZhipuAI(prompt, modelIndex = 0) {
       console.error(`${model}: ${e.message}`);
     }
     console.log(`Falling back to next model...`);
-    return callZhipuAI(prompt, modelIndex + 1);
+    return callNvidiaAI(prompt, modelIndex + 1);
   }
 }
 
@@ -368,7 +370,7 @@ function generateHtml(data) {
       <div class="header-meta">
         <span class="badge badge-date">📅 ${dateStr}（${weekDay}）</span>
         <span class="badge badge-count">📊 ${totalPapers} 篇文獻</span>
-        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+<span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
       </div>
     </div>
   </header>
@@ -449,7 +451,7 @@ async function main() {
     if (attempt > 0) {
       console.log(`\n--- Retry attempt ${attempt + 1}/${maxAiRetries} ---`);
     }
-    const aiResponse = await callZhipuAI(prompt, 0);
+    const aiResponse = await callNvidiaAI(prompt, 0);
 
     if (!aiResponse) {
       console.error("AI returned empty response after all model fallbacks");
