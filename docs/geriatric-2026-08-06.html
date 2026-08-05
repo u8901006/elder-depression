@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>老年憂鬱症文獻日報 &middot; 2026年8月6日</title>
+<meta name="description" content="2026年8月6日 老年憂鬱症文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); margin-bottom: 12px; }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .footer-links { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">👴</div>
+    <div class="header-text">
+      <h1>老年憂鬱症文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年8月6日（週四）</span>
+        <span class="badge badge-count">📊 19 篇文獻</span>
+<span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日無新文獻。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">⚡</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of affective disorders &middot; </p>
+          <p>本隨機對照、假對照試驗探討間歇theta突發刺激（iTBS）對伴隨失眠之老年憂鬱症患者的抑鬱與失眠症狀的療效，並利用靜態功能性磁振造影（fMRI）探討相關腦神經功能改變。結果顯示iTBS在改善抑鬱與失眠症狀方面較假組具有顯著療效，並伴隨前額葉葉下內側前皮質連接性增加，提示其透過調節前額邊緣迴路發揮抗憂鬱與改善睡眠的作用。</p>
+          
+          <div class="card-footer">
+            <span class="tag">神經調節治療</span><span class="tag">老年憂鬱症</span><span class="tag">失眠</span><span class="tag">fMRI</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42031015/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">⚡</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of affective disorders &middot; </p>
+          <p>本隨機對照、假對照試驗探討間歇theta突發刺激（iTBS）對伴隨失眠之老年憂鬱症患者的抑鬱與失眠症狀的療效，並利用靜態功能性磁振造影（fMRI）探討相關腦神經功能改變。結果顯示iTBS在改善抑鬱與失眠症狀方面較假組具有顯著療效，並伴隨前額葉葉下內側前皮質連結性增加，提示其透過調節前額邊緣迴路發揮抗憂鬱與改善睡眠的作用。</p>
+          
+          <div class="card-footer">
+            <span class="tag">神經調節治療</span><span class="tag">老年憂鬱症</span><span class="tag">失眠</span><span class="tag">fMRI</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42031015/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">⚡</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of affective disorders &middot; </p>
+          <p>本隨機對照、假對照試驗探討間歇theta突發刺激（iTBS）對伴隨失眠之老年憂鬱症患者的抑鬱與失眠症狀的療效，並利用靜態功能性磁振造影（fMRI）探討相關腦神經功能改變。結果顯示iTBS在改善抑鬱與失眠症狀方面較假組具有顯著療效，並伴隨前額葉葉下內側前皮質連結性增加，提示其透過調節前額邊緣迴路發揮抗憂鬱與改善睡眠的作用。</p>
+          
+          <div class="card-footer">
+            <span class="tag">神經調節治療</span><span class="tag">老年憂鬱症</span><span class="tag">失眠</span><span class="tag">fMRI</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42031015/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🔥</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Annals of medicine &middot; </p>
+          <p>本研究基於中國健康與退休縱向研究（CHARLS）資料，探討老年人於心腎代謝（CKM）0-3階段時，憂鬱症與後續缺血性心臟病（IHD）發生之關聯。結果顯示，憂鬱症（CESD≥10）顯著增加後續IHD風險，即使在控制傳統心血管危險因子後仍具獨立預測力，提示憂鬱症為CKM早期階段心血管事件的獨立危險因子，顯示其在心腦腎代謝綜合照護中的重要性。</p>
+          
+          <div class="card-footer">
+            <span class="tag">老年憂鬱症</span><span class="tag">心血管疾病</span><span class="tag">多重共病</span><span class="tag">中國研究</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42360305/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🔥</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of affective disorders &middot; </p>
+          <p>本研究利用美國CDC WONDER多重死亡原因資料庫，分析1999-2023年期間，同時憂鬱/焦慮與心血管疾病（CVD）被登記於死亡證明書之美國成人（≥25歲）死亡趨勢。結果顯示，該雙病症死亡率在研究期間呈顯著上升趨勢，尤其在65歲以上老年族群中增加顯著，提示憂鬱/焦慮與心血管疾病共病不僅增加疾病負擔，亦顯著提升長期死亡風險，凸顯雙重病症整合照護之緊迫性。</p>
+          
+          <div class="card-footer">
+            <span class="tag">血管性憂鬱</span><span class="tag">多重共病</span><span class="tag">死亡趨勢</span><span class="tag">美國研究</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42069310/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">The American journal of geriatric psychiatry : official journal of the American Association for Geriatric Psychiatry</p>
+          <p>本研究採用資料驅動的混合常態分布模型，探討晚年主要憂鬱症（LLD）發病年齡的潛在亞型分佈。結果顯示發病年齡資料最佳符合雙常態分布模型，經驗上最佳切離點約為70歲，進一步分析發現早發型（&lt;70歲）與晚發型（≥70歲）在家族病史、認知功能及治療反應上具有顯著差異，支持以發病年齡為依據進行LLD亞型分層的可能性。</p>
+          <div class="card-footer">
+            <span class="tag">老年憂鬱症</span><span class="tag">發病年齡</span><span class="tag">亞型分類</span><span class="tag">數據驅動研究</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/41513565/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👴</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Scandinavian journal of caring sciences</p>
+          <p>本文為批判性文獻綜述，聚焦老年人孤獨（孤獨感，非單純社會隔離）對公共衛生之衝擊。文獻顯示， pós-COVID-19 時代，約33% 50-80歲社區長者經歷顯著孤獨感，其死亡風險與抽菸相當，並顯著增加認知衰退、心血管疾病及精神健康惡化風險。文章總結了針對孤獨之幹預策略（如社交處方、團體活動、科技輔助）與未來研究方向，強調需納入社會生態模式進行多層面介入。</p>
+          <div class="card-footer">
+            <span class="tag">社會孤立與孤獨</span><span class="tag">老年憂鬱症</span><span class="tag">公共衛生</span><span class="tag">幹預策略</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42376726/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">The American journal of geriatric psychiatry : official journal of the American Association for Geriatric Psychiatry</p>
+          <p>本文為觀點評論，探討老化腦部神經生物學特徵如何調節晚年憂鬱症（LLD）對治療之反應。作者指出，年齡相關之神經退化、線粒體功能障礙、神經發炎及神經遞質系統（尤其膽鹼能、單胺類）衰退，可能導致對標準抗憂鬱藥物及心理治療反應不良。文中強調需將生物標記（如神經影像、炎症標誌、基因表型）整合至臨床決策，以實現個人化醫療，並提出未來應發展 kombinatorial 治療策略（如神經調節+認知訓練+代謝介入）以提升治療回應率。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span><span class="tag">老年憂鬱症</span><span class="tag">治療反應</span><span class="tag">神經生物學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42297709/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Brain research</p>
+          <p>本研究檢測晚年憂鬱症（LLD）患者與健康對照組之外周GABA鹼基濃度及GABA-A受體亞基（GABRA1, GABRA2, GABRA3, GABRA5）mRNA表達。結果顯示LLD組血漿GABA濃度顯著降低，且多數受體亞基表達下降，且生物標準物改變程度與臨床嚴重程度（MADRS評分）及認知執行功能障礙呈顯著負相關，支持外周GABAergic功能不足為LLD之生物學特徵，並可能 serve as biomarker for treatment response and cognitive decline. 暫未直接驗證其作為治療標靶之療效，但提供重要生物學依據。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span><span class="tag">老年憂鬱症</span><span class="tag">GABA</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42086139/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💡</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">The Journal of surgical research</p>
+          <p>本研究探討老年創傷患者之憂鬱及自殺風險干預。指出65歲以上成年人之自殺中，超過70%涉及 firearms，而創傷性損傷易加劇既有憂鬱與社會壓力。研究提出Geri-screen工具（結合PHQ-9、ASQ及 firearms 擁有評估）於五個一級創傷中心之多站點調查，發現單憑憂鬱篩檢（PHQ-9≥10）遺漏約30%具有自殺風險之個人（尤為持槍者），強調需整合 firearms 安全評估與心理篩檢，以提高老年創傷患者之自殺風險偵測敏感度。</p>
+          <div class="card-footer">
+            <span class="tag">自殺防治</span><span class="tag">老年憂鬱症</span><span class="tag">創傷患者</span><span class="tag">篩檢工具</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42335622/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Metabolism: clinical and experimental</p>
+          <p>本研究利用UK Biobank資料（n=29,344），檢視肝臟MRI指標（鐵離子校正T1，cT1 反映纖維化-發炎損傷；PDFF 反映脂肪）與腦白質高訊號區域（WMH）對未來神經精神事件（含憂鬱症、認知症、精神病）及死亡之預測力。結果顯示，僅纖維化-發炎肝損傷（高cT1）顯著預測增加神經精神複合事件及全因死亡風險，而單純脂肪肝（高PDFF）無此關聯，提示肝炎性纖維化而非脂肪積聚，可能經由體腔發炎或血腦屏障 dysfunction 影響腦部健康，提醒肝腦軸在老年神經精神健康中的重要角色。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span><span class="tag">多重共病</span><span class="tag">肝腦軸</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42150669/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👩‍⚕️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of clinical nursing</p>
+          <p>本系統性文獻回顧與meta分析評估護士主導之干預對輕度認知障礙（MCI）或痴呆症老年人之影響。納入自資料庫建立至2025年8月之研究，主要結束點為認知功能變化，次要結束點包括憂鬱症狀及生活品質。結果顯示，護士主導之多成分干預（如認知刺激、生活方式引導、照護者支持）對改善認知功能具有小至中等正面效應（g=0.34），並顯著減輕憂鬱症狀（g=0.29），提示護士在社區長照中具備關鍵角色，尤其在資源有限環境中，結構化護士導向介入能同時改善認知與情緒狀態。</p>
+          <div class="card-footer">
+            <span class="tag">失智症與認知</span><span class="tag">護理干預</span><span class="tag">憂鬱症狀</span><span class="tag">認知功能</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42098971/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👥</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">International journal of nursing studies</p>
+          <p>本混合方法系統文獻綜述旨在識別影響社區長者社會參與之決定因素（障礙與促進因），並比較正式（如志願服務、中心課程）與非正式（如家庭聚會、鄰里互動）參與之決定因素差異，進一步依照社會生態模式（個人、人際、社區、政策層級）檢視活動類型特定模式。結果顯示，個人層級（健康狀況、行動能力、認知功能）及人際層級（社會支持、交通便利性）為共同促進因子；社區層級（無障礙設施、活動可及性）及政策層級（福祉補助、長照支援）為關鍵促進因素；而污名化、經濟負擔及資訊不足為主要障礙。非正式參與更受家庭關係與傳統習俗影響，正式參與則較受服務可及性與補助政策影響。研究強調需多層面協同策略以提升長者社會參與與福祉。</p>
+          <div class="card-footer">
+            <span class="tag">社會孤立與孤獨</span><span class="tag">社會參與</span><span class="tag">社會生態模式</span><span class="tag">長照政策</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42160825/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💡</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of affective disorders</p>
+          <p>本研究進行分層分析，探討改良電痙攣療法（MECT）對晚年憂鬱症（LLD）患者認知功能之影響，並檢測哪些基線臨床與認知特徵能預測MECT後認知改善而非惡化。結果顯示，僅約30%接受MECT之LLD患者出現顯著認知改善，此群體較常見於基線執行功能較差但記憶功能相對保留、較年輕（&lt;75歲）、無併發糖尿病及基線炎症標誌物（如IL-6、CRP）較低者。研究首次證明特定基線認知與代謝特徵可預測MECT後認知受益，支持代謝與線粒體健康在調節MECT神經認知效應中的角色，提示未來應整合代謝篩選以個人化電痙攣療法決策，避免不必要認知風險。</p>
+          <div class="card-footer">
+            <span class="tag">神經調節治療</span><span class="tag">老年憂鬱症</span><span class="tag">認知功能</span><span class="tag">電痙攣療法</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/41956215/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👩‍⚕️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">OTJR : occupation, participation and health</p>
+          <p>本研究為台灣地區之一年縱向觀察研究（N=114，60歲以上女性），探討年齡歧視、憂鬱症、身體韌性與虛弱對生活品質（QoL）之影響。結果顯示，追蹤一年後，整體QoL顯著下降，尤其在75歲以上族群中較為顯著。多變項迴歸分析顯示，年齡歧視（經年齡歧視量表量測）、憂鬱症狀（GDS-15）、身體韌性降低及虛弱程度（CFI）皆為QoL顯著負向預測因子，其中年齡歧視及憂鬱症之負向影響具有獨立且加權效應。研究顯示，心理社會因素（年齡歧視、憂鬱）與身體虛弱具有互補且獨立之影響力，強調在長照政策與臨床照護中需同時關注心理社會與身體機能之雙重干預，以提升台灣超高齡社會老年女性之整體福祉。</p>
+          <div class="card-footer">
+            <span class="tag">台灣研究</span><span class="tag">老年憂鬱症</span><span class="tag">生活品質</span><span class="tag">年齡歧視</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42554631/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Journal of affective disorders</p>
+          <p>本研究探討成年注意力不足/過動症（ADHD）患者之情緒調節困難與失眠症狀之關聯，並檢視性別、年齡（&lt;30 vs ≥30歲）及夕昏型偏好是否為調節變數。橫向線上問卷調查顯示，ADHD成人中，情緒調節困難（由DERS量表測量）與失眠症狀（由ISI量表測量）存在顯著正相關（r=0.42，p&lt;0.001），此關聯在男性及夕昏型偏好者中略強，但在≥30歲組與女性中無顯著調節效應。結果提示情緒 dysregulation 可能為ADHD族群失眠之共同潛在機制，但其在中老年族群（尤其女性）之臨床關聯性有限，提示需進一步針對中老年ADHD併憂鬱樣本進行縱向驗證。</p>
+          <div class="card-footer">
+            <span class="tag">心理治療</span><span class="tag">情緒調節</span><span class="tag">失眠</span><span class="tag">ADHD</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42173367/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🥗</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">Archives of gerontology and geriatrics</p>
+          <p>本範疇性文獻回顧探討社區長者之功能自主性（能力進行日常生活活動）與營養狀態之關聯。檢索PubMed、Scopus及Web of Science，納入英文或西班牙文研究。結果顯示兩者存在雙向關聯：營養不良（特別是蛋白質擺取不足及微量營養素缺乏）會加速肌肉減少及功能退化，反之，功能限制（如行動不便、認知障礙）會影響食物採購、烹調及進食能力，惡化營養攝入。文獻顯示營養干預（如蛋白質補充、多維素補充）可部分改善功能指標，但效應受雙向關聯複雜性限制。研究強調需整合營养與功能評估之長照策略，以預防虛弱並促進積極 ageing。</p>
+          <div class="card-footer">
+            <span class="tag">長期照護</span><span class="tag">營養狀態</span><span class="tag">功能自主</span><span class="tag">虛弱預防</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42127443/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">The American journal of geriatric psychiatry : official journal of the American Association for Geriatric Psychiatry</p>
+          <p>本研究為PACt-MD隨機臨床試驗之調節效應分析，探討基線腦部MRI結構特徵（海馬體體積、前額葉皮質厚度、白質高訊號負荷）如何調節認知復健（CR）加經顱直流電刺激（tDCS）對已解除之重度憂鬱症（rMDD）或輕度認知障礙（MCI）老年人認知衰退之影響。結果顯示，較大之海馬體體積與較厚之前額葉皮質預測CR+tDCS對認知衰退之保護作用更強，而較高之白質高訊號負荷則減弱該保護效應，提示結構性腦備援可能調節腦刺激與認知訓練複合介入之長期神經保護效益，提示未來應結合神經影像生物標記進行個人化療決策。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span><span class="tag">認知功能</span><span class="tag">腦部刺激</span><span class="tag">認知康復</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42203570/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💡</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3></h3>
+          <p class="journal-source">European journal of psychotraumatology</p>
+          <p>本研究為系統性文獻回顧與meta分析，評估虛擬實境（VR）輔助之正念介入對憂鬱與焦慮症狀之效果。納入截至2025年之隨機對照試驗，主要結果為憂鬱及焦慮症狀變化（標準化平均差異）。結果顯示，VR正念介入相比對照組（待機或常規照護）可顯著減少憂鬱（SMD=-0.42，95%CI [-0.61, -0.23]）及焦慮症狀（SMD=-0.38，95%CI [-0.56, -0.20]），效應強度屬中等程度。異質性分析顯示，效應用於臨床樣本（如創傷後應激障礙、老年人）且介入時長≥20分鐘時效應較強。提示VR技術可增強正念介入之可及性與依從性，尤其適用於行動不便或地理隔離之人群，但長期效能及最適劑量尚需進一步研究。</p>
+          <div class="card-footer">
+            <span class="tag">心理治療</span><span class="tag">虛擬實境</span><span class="tag">正念</span><span class="tag">憂鬱焦慮</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42189223/" target="_blank">PubMed →</a>
+          </div>
+        </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">老年憂鬱症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">10</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">血管性憂鬱</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:10%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">失智症與認知</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:30%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">自殺防治</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:10%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">藥物治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+              <span class="topic-count">0</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">心理治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經科學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">5</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">社會孤立與孤獨</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:10%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">長期照護</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+              <span class="topic-count">0</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">台灣研究</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:10%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經調節治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:30%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">運動與生活型態</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+              <span class="topic-count">0</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">篩檢與評估</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">照護者負擔</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+              <span class="topic-count">0</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">多重共病</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:30%"></div></div>
+              <span class="topic-count">3</span>
+            </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">老年憂鬱症</span><span class="keyword">神經調節治療</span><span class="keyword">神經科學</span></div></div>
+
+  <div class="clinic-banner footer-links">
+    <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank" rel="noopener">
+      <span class="clinic-icon">🏥</span>
+      <span class="clinic-name">李政洋身心診所首頁</span>
+      <span class="clinic-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank" rel="noopener">
+      <span class="clinic-icon">📬</span>
+      <span class="clinic-name">訂閱電子報</span>
+      <span class="clinic-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="clinic-link" target="_blank" rel="noopener">
+      <span class="clinic-icon">☕</span>
+      <span class="clinic-name">Buy Me a Coffee</span>
+      <span class="clinic-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-super-120b-a12b</span>
+    <span><a href="https://github.com/u8901006/elder-depression">GitHub</a> &middot; <a href="index.html">回首頁</a></span>
+  </footer>
+</div>
+</body>
+</html>
