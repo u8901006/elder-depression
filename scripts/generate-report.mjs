@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const API_BASE = "https://integrate.api.nvidia.com/v1/chat/completions";
-const MODELS = ["nvidia/nemotron-3-super-120b-a12b", "nvidia/nemotron-3-nano-30b-a3b"];
+const MODELS = ["nvidia/nemotron-3.5-super-vl-120b-a12b", "z-ai/glm-5.3-flash"];
 const TIMEOUT_MS = 480_000;
 const MAX_TOKENS = 16384;
 
